@@ -1,4 +1,4 @@
-import { _decorator, Button, Component, Node, Prefab, Sprite, ProgressBar, instantiate, director } from 'cc';
+import { _decorator, Button, Component, Node, Prefab, Sprite, ProgressBar, instantiate, director, animation } from 'cc';
 const { ccclass, property } = _decorator;
 
 import { http } from './NetworkManager';
@@ -23,6 +23,7 @@ export class HomeMananger extends Component {
 
     // 进度条组件
     private progressBar: ProgressBar | null = null;
+
 
     onLoad(){
         this.GameStart.node.on(Button.EventType.CLICK,this.onGameStart,this)
