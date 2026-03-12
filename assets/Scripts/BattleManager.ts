@@ -1,12 +1,15 @@
-import { _decorator, Component, Node, find, AudioSource } from 'cc';
+import { _decorator, Component, Node, find, AudioSource, Prefab, instantiate, director, input, Input, } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('BattleManager')
 export class BattleManager extends Component {
 
-    // loading 实例
-    @property(Node)
-    public LoadingMask:Node = null;
+    // loading 预制体
+    @property(Prefab)
+    LoadingMask:Prefab = null;
+
+    // loading实例
+    private LoadingMaskNode:Node = null;
 
     // 加载动画组件
     private dotdTypeA:Animation = null;
@@ -15,18 +18,42 @@ export class BattleManager extends Component {
     bgAudioSource: AudioSource = null!;
 
     onLoad(){
-
+        input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
     }
 
     start() {
         // 播放背景音乐
         this.bgAudioSource.play();
-        // 设置节点为激活状态（显示）
-        // this.LoadingMask.active = true;
+        
     }
 
     update(deltaTime: number) {
         
+    }
+
+    // 创建loading动画实例
+    createProgressBar(){
+        // 实例化进度条
+        this.LoadingMaskNode = instantiate(this.LoadingMask);
+        // 获取Canvas节点（确保进度条显示在UI层）
+        const canvas = director.getScene()?.getChildByName("Canvas");
+        if (canvas) {
+            this.LoadingMaskNode.parent = canvas;
+            // 可选：设置进度条位置居中
+            this.LoadingMaskNode.setPosition(0, 0);
+        }
+    }
+
+    // 触摸开始
+    onTouchStart(){
+        if(this.LoadingMaskNode){
+            this.LoadingMaskNode.destroy()
+        }
+        this.createProgressBar()
+    }
+
+    onDestroy(){
+        input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
     }
 
 }
