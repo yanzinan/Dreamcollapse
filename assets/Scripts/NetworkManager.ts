@@ -7,6 +7,7 @@ class HttpManager {
     // url配置
     private APIURL = {
         "auth-login-guest":"/auth/login/guest",
+        "agent-list-hot":"/agent/list/hot"
     }
 
     private static instance: HttpManager;
