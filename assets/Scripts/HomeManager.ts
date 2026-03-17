@@ -3,6 +3,8 @@ const { ccclass, property } = _decorator;
 
 import { http } from './NetworkManager';
 
+import GlobalData from './GlobalData';
+
 @ccclass('HomeMananger')
 export class HomeMananger extends Component {
 
@@ -62,6 +64,10 @@ export class HomeMananger extends Component {
         try {
             const result = await http.post<{code:Number,data:any }>('auth-login-guest', {});
             http.setToken(result.data.token)
+
+            // 将参数存储到全局中，以便接下来使用
+            GlobalData.initParam = result.data;
+
             // 1. 实例化进度条预制体（添加到Canvas下，确保显示在最上层）
             this.createProgressBar();
 

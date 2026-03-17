@@ -1,6 +1,8 @@
 import { _decorator, Component, Node, find, AudioSource, Prefab, instantiate, director, input, Input, } from 'cc';
 const { ccclass, property } = _decorator;
 
+import GlobalData from './GlobalData';
+
 @ccclass('BattleManager')
 export class BattleManager extends Component {
 
@@ -19,6 +21,8 @@ export class BattleManager extends Component {
 
     onLoad(){
         input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
+
+        console.log(GlobalData.initParam)
     }
 
     start() {
