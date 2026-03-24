@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>Jacko Head 1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{47,46}</string>
+                <key>textureRect</key>
+                <string>{{0,0},{47,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Jacko Head 2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{47,46}</string>
+                <key>textureRect</key>
+                <string>{{47,0},{47,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Jacko Head 3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{47,46}</string>
+                <key>textureRect</key>
+                <string>{{94,0},{47,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>Jacko Head 5.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{47,46}</string>
+                <key>textureRect</key>
+                <string>{{141,0},{47,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>jackoHead.png</string>
+            <key>size</key>
+            <string>{188,46}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:2a002b58cc1249bbd8a2cb01bea24e3a:fa18fc72c9d77762042380e868631feb:205211a3bb2969620b4fe34c971c12f5$</string>
+            <key>textureFileName</key>
+            <string>jackoHead.png</string>
+        </dict>
+    </dict>
+</plist>

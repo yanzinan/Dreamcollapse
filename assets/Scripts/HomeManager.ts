@@ -5,6 +5,8 @@ import { http } from './NetworkManager';
 
 import GlobalData from './GlobalData';
 
+import { UIManager } from './UIManager'; // 你的弹窗管理器
+
 @ccclass('HomeMananger')
 export class HomeMananger extends Component {
 
@@ -26,13 +28,22 @@ export class HomeMananger extends Component {
     // 进度条组件
     private progressBar: ProgressBar | null = null;
 
+    // 接口请求loading动画预制体
+    @property(Prefab)
+    RequestLoading:Prefab = null;
+
+    // loading动画实例
+    private RequestLoadingNode:Node = null;
+
+
 
     onLoad(){
         this.GameStart.node.on(Button.EventType.CLICK,this.onGameStart,this)
     }
 
     start() {
-
+        // 生成游戏入参所需id
+        GlobalData.id = this.generate8DigitNumberID()
     }
 
     update(deltaTime: number) {
@@ -48,7 +59,7 @@ export class HomeMananger extends Component {
     // 点击开始游戏
     onGameStart() {
         console.log("点击了开始游戏")
-        this.guestLogin()
+        
         // 核心：将按钮设置为不可用
         this.GameStart.interactable = false;
 
@@ -57,26 +68,58 @@ export class HomeMananger extends Component {
         if (buttonSprite) {
             buttonSprite.color = buttonSprite.color.set(128); // 透明度设为50%（0-255范围）
         }
+
+        // 展示loading
+        this.createLoading()
+        // 请求接口获取slots数据
+        this.eventInit()
+        
     }
 
-    // 游客登录测试
-    async guestLogin() {
-        try {
-            const result = await http.post<{code:Number,data:any }>('auth-login-guest', {});
-            http.setToken(result.data.token)
+    // 请求接口获取游戏风格参数
+    async eventInit(){
 
+        try{
+            const result = await http.post<{code:Number,data:any }>('event-init', {});
             // 将参数存储到全局中，以便接下来使用
-            GlobalData.initParam = result.data;
+            GlobalData.tone_bias = result.data.tone_bias;
+            GlobalData.theme_bias = result.data.theme_bias;
+            GlobalData.npc_bias = result.data.npc_bias;
+
+            // 销毁loading
+            this.RequestLoadingNode.destroy()
 
             // 1. 实例化进度条预制体（添加到Canvas下，确保显示在最上层）
             this.createProgressBar();
 
             // 2. 开始预加载战斗场景
             this.preloadBattleScene();
-            
-        } catch (error: any) {
-            console.error('登录失败:', error.message);
+
+        }catch (error: any) {
+            console.error('eventInit失败:', error.message);
+
+            // ======================
+            // 捕获 502 弹出预制体弹窗
+            // ======================
+            if (error.code === 502) {
+
+                // 销毁loading
+                this.RequestLoadingNode.destroy()
+                
+                UIManager.instance.showNetErrorPopup(
+                    // 重试按钮
+                    () => {
+                        this.eventInit(); // 重新初始化
+                    },
+                    // 关闭按钮 → 退回首页
+                    () => {
+                        // 什么都不做 停留在当前页面
+                    }
+                );
+            }
         }
+
+        
     }
 
     // 创建进度条实例
@@ -151,6 +194,31 @@ export class HomeMananger extends Component {
             // 清空引用，防止内存泄漏
             this.progressBarNode = null;
             this.progressBar = null;
+        }
+    }
+
+    /**
+     * 生成8位纯数字随机ID
+     * @returns {string} 8位数字字符串（避免前导0，保证8位长度）
+     */
+    generate8DigitNumberID() {
+        // 生成 10000000 ~ 99999999 之间的随机整数
+        const min = 10000000;
+        const max = 99999999;
+        const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        return randomNum.toString();
+    }
+
+    // 创建loading动画实例
+    createLoading(){
+        // 实例化进度条
+        this.RequestLoadingNode = instantiate(this.RequestLoading);
+        // 获取Canvas节点（确保进度条显示在UI层）
+        const canvas = director.getScene()?.getChildByName("Canvas");
+        if (canvas) {
+            this.RequestLoadingNode.parent = canvas;
+            // 可选：设置进度条位置居中
+            this.RequestLoadingNode.setPosition(0, 0);
         }
     }
 }

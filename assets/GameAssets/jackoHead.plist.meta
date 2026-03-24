@@ -1,0 +1,201 @@
+{
+  "ver": "1.0.8",
+  "importer": "sprite-atlas",
+  "imported": true,
+  "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {
+    "b18e5": {
+      "importer": "sprite-frame",
+      "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab@b18e5",
+      "displayName": "",
+      "id": "b18e5",
+      "name": "Jacko Head 1",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 47,
+        "height": 46,
+        "rawWidth": 47,
+        "rawHeight": 46,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "983d6694-1b39-46fc-a6b7-1fd59cd234b1@6c48a",
+        "atlasUuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "fa90f": {
+      "importer": "sprite-frame",
+      "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab@fa90f",
+      "displayName": "",
+      "id": "fa90f",
+      "name": "Jacko Head 2",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 47,
+        "trimY": 0,
+        "width": 47,
+        "height": 46,
+        "rawWidth": 47,
+        "rawHeight": 46,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "983d6694-1b39-46fc-a6b7-1fd59cd234b1@6c48a",
+        "atlasUuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "3fb55": {
+      "importer": "sprite-frame",
+      "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab@3fb55",
+      "displayName": "",
+      "id": "3fb55",
+      "name": "Jacko Head 3",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 94,
+        "trimY": 0,
+        "width": 47,
+        "height": 46,
+        "rawWidth": 47,
+        "rawHeight": 46,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "983d6694-1b39-46fc-a6b7-1fd59cd234b1@6c48a",
+        "atlasUuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "153a3": {
+      "importer": "sprite-frame",
+      "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab@153a3",
+      "displayName": "",
+      "id": "153a3",
+      "name": "Jacko Head 5",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 141,
+        "trimY": 0,
+        "width": 47,
+        "height": 46,
+        "rawWidth": 47,
+        "rawHeight": 46,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [],
+          "indexes": [],
+          "uv": [],
+          "nuv": [],
+          "minPos": [],
+          "maxPos": []
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "983d6694-1b39-46fc-a6b7-1fd59cd234b1@6c48a",
+        "atlasUuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "atlasTextureName": "jackoHead.png",
+    "format": 3,
+    "uuid": "063fcc81-f029-4dbe-8e7e-c58e4e37b7ab",
+    "textureUuid": "983d6694-1b39-46fc-a6b7-1fd59cd234b1@6c48a"
+  }
+}

@@ -2,12 +2,12 @@ import { sys } from 'cc';
 
 class HttpManager {
     // ✅ 显式声明所有私有属性（这是关键！）
-    private baseUrl: string = 'https://www.kaoiki.com:3333/api/v1';
+    private baseUrl: string = 'http://dnd.heartbeat.cool:2248';
     private token: string | null = null;
     // url配置
     private APIURL = {
-        "auth-login-guest":"/auth/login/guest",
-        "agent-list-hot":"/agent/list/hot"
+        "invoke":"/invoke",
+        "event-init":"/event-init/init"
     }
 
     private static instance: HttpManager;
@@ -54,13 +54,17 @@ class HttpManager {
         try {
             const response = await fetch(fullUrl, finalOptions);
 
+            // 核心：这里判断 HTTP 状态码，502 主动抛出错误
             if (!response.ok) {
-                let errorMsg = `HTTP Error: ${response.status}`;
-                try {
-                    const errorData = await response.json();
-                    errorMsg += ` - ${JSON.stringify(errorData)}`;
-                } catch {}
-                throw new Error(errorMsg);
+                // let errorMsg = `HTTP Error: ${response.status}`;
+                // try {
+                //     const errorData = await response.json();
+                //     errorMsg += ` - ${JSON.stringify(errorData)}`;
+                // } catch {}
+                // throw new Error(errorMsg);
+                const err = new Error(`HTTP 错误！状态码：${response.status}`);
+                (err as any).code = response.status; // 把状态码绑到错误上
+                throw err;
             }
 
             const contentType = response.headers.get('content-type');
@@ -70,8 +74,12 @@ class HttpManager {
                 return (await response.text()) as unknown as T;
             }
         } catch (error) {
-            console.error('[HttpManager] 请求失败:', url, error);
-            throw error;
+            // 网络异常统一按 502 处理
+            if (!error.code) {
+                error.code = 502;
+                error.message = '网络拥堵，请稍后重试';
+            }
+            throw error; // 继续往外抛，让 GameInit 捕获
         }
     }
 

@@ -1128,6 +1128,10 @@
       "__expectedType__": "cc.Prefab"
     },
     "battleSceneName": "BattleScene",
+    "RequestLoading": {
+      "__uuid__": "118a4cd3-1549-4e7b-8ebc-fa28e8da7f9c",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "f8AmheRElEsp1hxGiCYrWv"
   },
   {
