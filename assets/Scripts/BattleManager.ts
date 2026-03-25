@@ -1,11 +1,15 @@
 import { _decorator, Component, Node, find, AudioSource, Prefab, instantiate, director, input, Input, Label, Button, } from 'cc';
 const { ccclass, property } = _decorator;
-
+// 网络请求
 import { http } from './NetworkManager';
+// 全局数据存储
 import GlobalData from './GlobalData';
+// 请求接口报502提示框
 import { UIManager } from './UIManager'; // 你的弹窗管理器
-
+// 游戏难度选择
 import { DifficultyPanel, DifficultyType } from './DifficultyPanel';
+// 剧情展示
+import { PlotController } from './PlotController';
 
 @ccclass('BattleManager')
 export class BattleManager extends Component {
@@ -23,6 +27,22 @@ export class BattleManager extends Component {
 
     // loading动画实例
     private RequestLoadingNode:Node = null;
+
+    // 剧情控制器
+    private plotController: PlotController = null!;
+
+    // ========== 配置项：全部集中在这里 ==========
+    // 标题字段（单独展示）
+    private readonly TITLE_FIELD = 'title';
+    // 内容展示字段（打字机）
+    // init事件字段配置
+    private readonly CONTENT_FIELDS_INIT = [
+        'memory_summary',
+        'player_role',
+        'primary_goal',
+        'stakes',
+        'scene'
+    ];
 
     onLoad(){
         // 场景初始化：生成难度选择面板
@@ -111,6 +131,43 @@ export class BattleManager extends Component {
             this.RequestLoadingNode.destroy()
             // 将参数存储到全局中，以便接下来使用
             GlobalData.initParam = result.data;
+
+            // 展示剧情
+            // 获取控制器
+            this.plotController = find('Canvas/PlotRoot')!.getComponent(PlotController)!;
+
+            // ========== 数据解析全部在这里 ==========
+            const aiState = result.data.ai_state;
+            const payload = result.data.payload;
+
+            // 1. 提取标题
+            const title = aiState[this.TITLE_FIELD] || '';
+
+            // 2. 提取内容段落
+            const contentLines: string[] = [];
+            this.CONTENT_FIELDS_INIT.forEach(field => {
+                const content = aiState[field] ?? payload.mainline[field] ?? payload.opening[field];
+                if (content) contentLines.push(content);
+            });
+
+            // 3. NPC台词
+            const npcLine = payload.opening.npc_line;
+
+            // 4. 提示文字
+            const tipText = payload.start_hint.how_to_play_next;
+
+            // 5. 选项
+            const options = payload.options.map((o: any) => ({
+                id: o.id,
+                text: o.text
+            }));
+
+            // ========== 交给展示层 ==========
+            this.plotController.setOptionData(tipText, options);
+            this.plotController.startPlayPlot(title, contentLines, npcLine, (selectId) => {
+                // 选择后，携带ID重新请求
+                console.log(selectId);
+            });
             
         } catch (error: any) {
             console.error('invoke失败:', error);
