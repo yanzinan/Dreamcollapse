@@ -100,7 +100,7 @@ export class HomeMananger extends Component {
             this.preloadBattleScene();
 
         }catch (error: any) {
-            console.error('eventInit失败:', error.message);
+            console.error('eventInit失败:', error);
 
             // ======================
             // 捕获 502 弹出预制体弹窗

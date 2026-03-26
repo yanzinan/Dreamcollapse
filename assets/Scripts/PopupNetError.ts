@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Button, Label } from 'cc';
+import { _decorator, Component, Button, Label } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('PopupNetError')
@@ -20,7 +20,6 @@ export class PopupNetError extends Component {
         this.msgLabel.string = msg;
         this._onRetry = onRetry;
         this._onClose = onClose;
-        // this.node.active = true;
     }
 
     onLoad() {
@@ -28,21 +27,20 @@ export class PopupNetError extends Component {
         this.btnClose.node.on(Button.EventType.CLICK, this.onClickClose, this);
     }
 
-    // 重试 + 销毁弹窗
+    // 重试
     onClickRetry() {
         this._onRetry?.();
-        this.destroyPopup(); // 核心：销毁
+        this.destroySelf();
     }
 
-    // 关闭 + 销毁弹窗
+    // 关闭
     onClickClose() {
         this._onClose?.();
-        this.destroyPopup(); // 核心：销毁
+        this.destroySelf();
     }
 
-    // 统一销毁方法
-    private destroyPopup() {
-        // this.node.active = false;
-        this.node.destroy(); // 销毁预制体实例
+    // 销毁弹窗
+    destroySelf() {
+        this.node.destroy();
     }
 }

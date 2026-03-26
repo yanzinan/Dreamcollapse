@@ -77,8 +77,8 @@ export class PlotController extends Component {
 
         // 3. 显示对话框
         this.dialogBox.active = true;
-        this.dialogText.string = '';
-        await this.typeTextEffect(this.dialogText, npcLine);
+        this.dialogText.string = npcLine;
+        // await this.typeTextEffect(this.dialogText, npcLine);
     }
 
     /**
@@ -114,7 +114,7 @@ export class PlotController extends Component {
                     clearInterval(interval);
                     resolve();
                 }
-            }, 135);
+            }, 35);
         });
     }
 

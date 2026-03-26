@@ -1,7 +1,5 @@
 // GlobalData.ts
 export default class GlobalData {
-    // 静态属性存储场景跳转参数
-    public static initParam: any = null;
     // 每一局游戏的id
     public static id:string = '';
     // 游戏难易程度
@@ -16,6 +14,10 @@ export default class GlobalData {
     public static theme_bias:string = '';
     // NPC类型
     public static npc_bias:string = '';
+
+    // 静态属性存储场景跳转参数
+    // init事件参数
+    public static initParam: any = null;
 
 
     // 清空参数（避免数据残留）
