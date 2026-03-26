@@ -1,4 +1,4 @@
-import { _decorator, Button, Component, Node, Prefab, Sprite, ProgressBar, instantiate, director, animation } from 'cc';
+import { _decorator, Button, Component, Node, Prefab, Sprite, ProgressBar, instantiate, director, animation, AudioSource } from 'cc';
 const { ccclass, property } = _decorator;
 
 import { http } from './NetworkManager';
@@ -6,6 +6,8 @@ import { http } from './NetworkManager';
 import GlobalData from './GlobalData';
 
 import { UIManager } from './UIManager'; // 你的弹窗管理器
+// 背景音乐播放管理器
+import { AudioManager } from './AudioManager';
 
 @ccclass('HomeMananger')
 export class HomeMananger extends Component {
@@ -59,6 +61,8 @@ export class HomeMananger extends Component {
     // 点击开始游戏
     onGameStart() {
         console.log("点击了开始游戏")
+
+        AudioManager.playBGM()
         
         // 核心：将按钮设置为不可用
         this.GameStart.interactable = false;
@@ -180,6 +184,7 @@ export class HomeMananger extends Component {
 
                 // 恢复按钮状态（可选，若跳转后当前场景销毁则无需）
                 this.GameStart.interactable = true;
+
             }
         );
     }

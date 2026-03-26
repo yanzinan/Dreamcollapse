@@ -800,7 +800,7 @@
         "__id__": 32
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 40
@@ -1326,7 +1326,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -74.37100000000001,
+      "y": -81.47999999999993,
       "z": 0
     },
     "_lrot": {
@@ -1497,7 +1497,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 40
+      "height": 37.03999999999991
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1554,7 +1554,7 @@
     "__prefab": null,
     "clickEvents": [],
     "_interactable": true,
-    "_transition": 2,
+    "_transition": 0,
     "_normalColor": {
       "__type__": "cc.Color",
       "r": 214,
@@ -1583,22 +1583,10 @@
       "b": 124,
       "a": 255
     },
-    "_normalSprite": {
-      "__uuid__": "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_hoverSprite": {
-      "__uuid__": "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_pressedSprite": {
-      "__uuid__": "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_disabledSprite": {
-      "__uuid__": "951249e0-9f16-456d-8b85-a6ca954da16b@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_normalSprite": null,
+    "_hoverSprite": null,
+    "_pressedSprite": null,
+    "_disabledSprite": null,
     "_duration": 0.1,
     "_zoomScale": 1.2,
     "_target": {
@@ -1622,8 +1610,8 @@
     },
     "_left": 260,
     "_right": 260,
-    "_top": 154.3709999999999,
-    "_bottom": 5.6289999999998805,
+    "_top": 162.95999999999987,
+    "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
     "_isAbsLeft": true,
@@ -1711,7 +1699,7 @@
         "__id__": 51
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 55
@@ -2154,7 +2142,7 @@
     "_startAxis": 0,
     "_paddingLeft": 60,
     "_paddingRight": 60,
-    "_paddingTop": 50,
+    "_paddingTop": 70,
     "_paddingBottom": 0,
     "_spacingX": 40,
     "_spacingY": 20,
@@ -2451,9 +2439,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "bgAudioSource": {
-      "__id__": 9
-    },
     "difficultyPanelPrefab": {
       "__uuid__": "677cf205-f751-434d-9c67-e88c1d5048db",
       "__expectedType__": "cc.Prefab"

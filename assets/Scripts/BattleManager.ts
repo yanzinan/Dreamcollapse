@@ -14,9 +14,6 @@ import { PlotController } from './PlotController';
 @ccclass('BattleManager')
 export class BattleManager extends Component {
 
-    @property(AudioSource)
-    bgAudioSource: AudioSource = null!;
-
     // 游戏难度预制体
     @property(Prefab)
     difficultyPanelPrefab: Prefab = null;
@@ -50,9 +47,6 @@ export class BattleManager extends Component {
     }
 
     start() {
-        // 播放背景音乐
-        this.bgAudioSource.play();
-        
     }
 
     update(deltaTime: number) {
