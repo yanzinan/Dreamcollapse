@@ -7,7 +7,8 @@ class HttpManager {
     // url配置
     private APIURL = {
         "invoke":"/invoke",
-        "event-init":"/event-init/init"
+        "event-init":"/event-init/init",
+        "novel":"/novel"
     }
 
     private static instance: HttpManager;

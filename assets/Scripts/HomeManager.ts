@@ -86,9 +86,9 @@ export class HomeMananger extends Component {
         try{
             const result = await http.post<{code:Number,data:any }>('event-init', {});
             // 将参数存储到全局中，以便接下来使用
-            GlobalData.tone_bias = result.data.tone_bias;
-            GlobalData.theme_bias = result.data.theme_bias;
-            GlobalData.npc_bias = result.data.npc_bias;
+            GlobalData.tone_bias = result.data.slots.tone_bias;
+            GlobalData.theme_bias = result.data.slots.theme_bias;
+            GlobalData.npc_bias = result.data.slots.npc_bias;
 
             // 销毁loading
             this.RequestLoadingNode.destroy()

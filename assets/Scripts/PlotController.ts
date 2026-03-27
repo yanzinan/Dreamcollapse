@@ -40,7 +40,7 @@ export class PlotController extends Component {
     typeSound: AudioClip = null!;
 
     // 回调
-    private onOptionSelectedCallback: (id: number) => void = null!;
+    private onOptionSelectedCallback: (id: number, text: string) => void = null!;
 
     start() {
         this.plotRoot.active = false
@@ -60,7 +60,7 @@ export class PlotController extends Component {
         title: string,
         contentLines: string[],
         npcLine: string,
-        onOptionSelected: (id: number) => void
+        onOptionSelected: (id: number, text: string) => void
     ) {
         this.onOptionSelectedCallback = onOptionSelected;
         // 展示剧情画面
@@ -70,14 +70,17 @@ export class PlotController extends Component {
 
         // 2. 内容打字机展示
         this.plotContent.string = '';
-        for (let i = 0; i < contentLines.length; i++) {
+        for (let i = 0; i < contentLines.length; i++) { 
             if (i > 0) this.plotContent.string += '\n\n';
-            await this.typeTextEffect(this.plotContent, contentLines[i]);
+            await this.typeTextEffect(this.plotContent, contentLines[i],npcLine);
         }
 
         // 3. 显示对话框
-        this.dialogBox.active = true;
-        this.dialogText.string = npcLine;
+        if(npcLine){
+            this.dialogBox.active = true;
+            this.dialogText.string = npcLine;
+        }
+        
         // await this.typeTextEffect(this.dialogText, npcLine);
     }
 
@@ -97,13 +100,13 @@ export class PlotController extends Component {
 
             btn.on(Button.EventType.CLICK, () => {
                 this.optionPanel.active = false;
-                this.onOptionSelectedCallback(item.id);
+                this.onOptionSelectedCallback(item.id, item.text);
             });
         });
     }
 
     // 打字机效果
-    typeTextEffect(label: Label, text: string): Promise<void> {
+    typeTextEffect(label: Label, text: string, npcLine: string): Promise<void> {
         return new Promise(resolve => {
             let idx = 0;
             const interval = setInterval(() => {
@@ -113,8 +116,13 @@ export class PlotController extends Component {
                 if (idx >= text.length) {
                     clearInterval(interval);
                     resolve();
+
+                    if(npcLine == ""){
+                        // 提示框
+                        this.onOptionSelectedCallback(999,'nextNovel');
+                    }
                 }
-            }, 35);
+            }, 1);
         });
     }
 

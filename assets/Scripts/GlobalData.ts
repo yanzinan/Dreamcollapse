@@ -5,7 +5,7 @@ export default class GlobalData {
     // 游戏难易程度
     public static difficulty:string = '';
     // 游戏总时长
-    public static hard_limit_seconds:number = 300;
+    public static hard_limit_seconds:number = 30;
     // 游戏活跃时长
     public static elapsed_active_seconds:number = 0;
     // 游戏风格倾向
@@ -14,6 +14,20 @@ export default class GlobalData {
     public static theme_bias:string = '';
     // NPC类型
     public static npc_bias:string = '';
+
+    // context入参
+    public static current_scene_summary:string = '';
+    public static available_options:Array<[]> = [];
+    public static state_flags:Object = {};
+    public static history_events:Array<{}> = [];
+
+
+    // 是否已经走过end事件
+    public static endEventWork:Boolean = false;
+
+    // novel入参
+    public static player_name:string = '';
+    public static novel_summary:Object = {};
 
     // 静态属性存储场景跳转参数
     // init事件参数
