@@ -76,9 +76,20 @@ export class PlotController extends Component {
         }
 
         // 3. 显示对话框
-        if(npcLine){
+        if(npcLine != "" && npcLine != 'combat'){
             this.dialogBox.active = true;
             this.dialogText.string = npcLine;
+        }
+
+        // combat没有npcLine  直接展示选项框
+        if(npcLine == 'combat'){
+            this.onShowOptions()
+        }
+
+        // 这里是end阶段了  直接调用生成微小说弹窗
+        if(npcLine == ""){
+            // 提示框
+            this.onOptionSelectedCallback(999,'nextNovel');
         }
         
         // await this.typeTextEffect(this.dialogText, npcLine);
@@ -116,13 +127,8 @@ export class PlotController extends Component {
                 if (idx >= text.length) {
                     clearInterval(interval);
                     resolve();
-
-                    if(npcLine == ""){
-                        // 提示框
-                        this.onOptionSelectedCallback(999,'nextNovel');
-                    }
                 }
-            }, 1);
+            }, 60);
         });
     }
 

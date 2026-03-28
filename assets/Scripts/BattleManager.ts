@@ -358,6 +358,24 @@ export class BattleManager extends Component {
 
     // decision事件
     async GameDecision(selected_option_id,selectText){
+        if(GlobalData.history_events.length >= GlobalData.history_events_num){
+            UIManager.instance.showGameEndPopup(
+                '玩家在本局游戏中迷路了，任务失败，您可以选择将您的游戏过程生成一篇微小说，也可以直接退出游戏再来一局。',
+                // 生成微小说
+                () => {
+                    this.EnoughEnd()
+                },
+                // 关闭按钮 → 退回首页
+                () => {
+                    // 在这里写返回首页逻辑
+                    // 例：
+                    director.loadScene("Home");
+                    console.log("返回首页");
+                }
+            )
+
+            return false
+        }
         if(this.totalTime >= GlobalData.hard_limit_seconds) return;
         // 暂停计时
         this.timerActive = false;
@@ -510,6 +528,24 @@ export class BattleManager extends Component {
 
     // puzzle事件
     async GamePuzzle(selected_option_id,selectText){
+        if(GlobalData.history_events.length >= GlobalData.history_events_num){
+            UIManager.instance.showGameEndPopup(
+                '玩家在本局游戏中迷路了，任务失败，您可以选择将您的游戏过程生成一篇微小说，也可以直接退出游戏再来一局。',
+                // 生成微小说
+                () => {
+                    this.EnoughEnd()
+                },
+                // 关闭按钮 → 退回首页
+                () => {
+                    // 在这里写返回首页逻辑
+                    // 例：
+                    director.loadScene("Home");
+                    console.log("返回首页");
+                }
+            )
+
+            return false
+        }
         if(this.totalTime >= GlobalData.hard_limit_seconds) return;
         // 暂停计时
         this.timerActive = false;
@@ -662,6 +698,24 @@ export class BattleManager extends Component {
 
     // combat事件
     async GameCombat(selected_option_id,selectText){
+        if(GlobalData.history_events.length >= GlobalData.history_events_num){
+            UIManager.instance.showGameEndPopup(
+                '玩家在本局游戏中迷路了，任务失败，您可以选择将您的游戏过程生成一篇微小说，也可以直接退出游戏再来一局。',
+                // 生成微小说
+                () => {
+                    this.EnoughEnd()
+                },
+                // 关闭按钮 → 退回首页
+                () => {
+                    // 在这里写返回首页逻辑
+                    // 例：
+                    director.loadScene("Home");
+                    console.log("返回首页");
+                }
+            )
+
+            return false
+        }
         if(this.totalTime >= GlobalData.hard_limit_seconds) return;
         // 暂停计时
         this.timerActive = false;
@@ -747,7 +801,7 @@ export class BattleManager extends Component {
             });
 
             // 3. NPC台词
-            const npcLine = payload.scene.npc_line;
+            const npcLine = payload.scene.npc_line ?? 'combat';
 
             // 4. 提示文字
             const tipText = "选择一个行动选项来推进故事，你的选择将决定接下来的遭遇。";
@@ -864,6 +918,7 @@ export class BattleManager extends Component {
                 }
             }
             const result = await http.post<{code:Number,data:any }>('invoke', paramIn);
+            GlobalData.novel_summary = result.data.payload.novel_summary
             console.log(result)
             // 销毁loading
             this.RequestLoadingNode.destroy()
@@ -995,6 +1050,7 @@ export class BattleManager extends Component {
             }
             const result = await http.post<{code:Number,data:any }>('invoke', paramIn);
             GlobalData.novel_summary = result.data.payload.novel_summary
+            console.log(GlobalData.novel_summary)
 
             // 生成微小说
             this.GenerateNovel()
@@ -1025,6 +1081,95 @@ export class BattleManager extends Component {
         }
     }
 
+    // 已执行事件超过15个 被迫下线
+    async EnoughEnd(){
+        // 暂停计时
+        this.timerActive = false;
+        // 展示loading
+        this.createLoading()
+
+        GlobalData.history_events.push({
+            "event_type": "enough",
+            "scene_summary": "任务结束",
+            "selected_option_text": "",
+            "result_summary": "玩家在做任务时迷路了，找不到通关路线，强制下线(死亡)"
+        })
+        try {
+            let paramIn = {
+                "event": {
+                  "type": "end"
+                },
+                "session": {
+                  "session_id": "session_" + GlobalData.id,
+                  "player_count": 1,
+                  "difficulty": GlobalData.difficulty
+                },
+                "time": {
+                  "hard_limit_seconds": GlobalData.hard_limit_seconds,
+                  "elapsed_active_seconds": GlobalData.hard_limit_seconds,
+                  "remaining_seconds": GlobalData.hard_limit_seconds - GlobalData.hard_limit_seconds
+                },
+                "seed": {
+                  "run_seed": "run_" + GlobalData.id
+                },
+                "constraints": {
+                  "language": "cn",
+                  "content_rating": "PG",
+                  "max_chars_scene": 220,
+                  "max_chars_option": 14,
+                  "forbidden_terms": ["骰子", "扑克", "点数", "规则"]
+                },
+                "slots": {
+                  "tone_bias": GlobalData.tone_bias,
+                  "theme_bias": GlobalData.theme_bias,
+                  "npc_bias": GlobalData.npc_bias
+                },
+                "client_context": {
+                  "platform": "miniprogram",
+                  "locale": "zh-CN"
+                },
+                "payload": {
+                    // "selected_option_id": selected_option_id
+                },
+                "context": {
+                    "current_scene_summary":GlobalData.current_scene_summary,
+                    // "available_options":GlobalData.available_options,
+                    "state_flags":GlobalData.state_flags,
+                    "history_events":GlobalData.history_events
+                }
+            }
+            const result = await http.post<{code:Number,data:any }>('invoke', paramIn);
+            GlobalData.novel_summary = result.data.payload.novel_summary
+            console.log(GlobalData.novel_summary)
+
+            // 生成微小说
+            this.GenerateNovel()
+            
+        } catch (error: any) {
+            console.error('invoke失败:', error);
+            // ======================
+            // 捕获 502 弹出预制体弹窗
+            // ======================
+            if (error.code === 502) {
+                // 销毁loading
+                this.RequestLoadingNode.destroy()
+                
+                UIManager.instance.showNetErrorPopup(
+                    // 重试按钮
+                    () => {
+                        this.EnoughEnd(); // 重新初始化
+                    },
+                    // 关闭按钮 → 退回首页
+                    () => {
+                        // 在这里写返回首页逻辑
+                        // 例：
+                        director.loadScene("Home");
+                        console.log("返回首页");
+                    }
+                );
+            }
+        }
+    }
 
     // 生成微小说
     async GenerateNovel(){

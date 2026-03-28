@@ -35,6 +35,8 @@ export class PlayerNamePopup extends Component {
         // 隐藏提示、关闭弹窗
         this.hideTip();
         this.node.active = false;
+        // 1. 关闭当前面板
+        this.node.destroy();
 
         // 回传名字
         this.onSubmitSuccess?.(playerName);
