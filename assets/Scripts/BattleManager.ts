@@ -626,7 +626,10 @@ export class BattleManager extends Component {
             // 2. 提取内容段落
             const contentLines: string[] = [];
             this.CONTENT_FIELDS_PUZZLE.forEach(field => {
-                const content = aiState[field] ?? payload.puzzle[field] ?? payload.result[field] ?? payload.scene[field];
+                const content = aiState[field] 
+                ?? (payload.puzzle && payload.puzzle[field])
+                ?? (payload.result && payload.result[field])
+                ?? (payload.scene && payload.scene[field]);
                 if (content) contentLines.push(content);
             });
 
@@ -1051,6 +1054,8 @@ export class BattleManager extends Component {
             const result = await http.post<{code:Number,data:any }>('invoke', paramIn);
             GlobalData.novel_summary = result.data.payload.novel_summary
             console.log(GlobalData.novel_summary)
+            // 销毁loading
+            this.RequestLoadingNode.destroy()
 
             // 生成微小说
             this.GenerateNovel()
@@ -1142,6 +1147,8 @@ export class BattleManager extends Component {
             GlobalData.novel_summary = result.data.payload.novel_summary
             console.log(GlobalData.novel_summary)
 
+            // 销毁loading
+            this.RequestLoadingNode.destroy()
             // 生成微小说
             this.GenerateNovel()
             
@@ -1173,6 +1180,10 @@ export class BattleManager extends Component {
 
     // 生成微小说
     async GenerateNovel(){
+        // 暂停计时
+        this.timerActive = false;
+        // 展示loading
+        this.createLoading()
         try {
             let paramIn = {
                 "player_name": GlobalData.player_name,

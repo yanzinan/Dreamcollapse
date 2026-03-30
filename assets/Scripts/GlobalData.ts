@@ -5,7 +5,7 @@ export default class GlobalData {
     // 游戏难易程度
     public static difficulty:string = '';
     // 游戏总时长
-    public static hard_limit_seconds:number = 50;
+    public static hard_limit_seconds:number = 300;
     // 游戏活跃时长
     public static elapsed_active_seconds:number = 0;
     // 游戏风格倾向
@@ -30,7 +30,7 @@ export default class GlobalData {
     public static novel_summary:Object = {};
 
     // 限制事件执行次数
-    public static history_events_num = 2;
+    public static history_events_num = 14;
 
     // 静态属性存储场景跳转参数
     // init事件参数

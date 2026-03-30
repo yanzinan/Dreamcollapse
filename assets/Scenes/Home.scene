@@ -1154,6 +1154,10 @@
       "__uuid__": "11810eff-455b-4812-b196-accd8718ae25",
       "__expectedType__": "cc.Prefab"
     },
+    "TimeoutPopupPrefab": {
+      "__uuid__": "0d568fbe-8602-437d-8109-16ab06c63325",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "b4WtBH1HVFjoNtewmz3YIl"
   },
   {
