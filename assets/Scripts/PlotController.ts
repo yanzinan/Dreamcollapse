@@ -72,7 +72,7 @@ export class PlotController extends Component {
         this.plotContent.string = '';
         for (let i = 0; i < contentLines.length; i++) { 
             if (i > 0) this.plotContent.string += '\n\n';
-            await this.typeTextEffect(this.plotContent, contentLines[i],npcLine);
+            await this.typeTextEffect(this.plotContent, contentLines[i]);
         }
 
         // 3. 显示对话框
@@ -117,18 +117,33 @@ export class PlotController extends Component {
     }
 
     // 打字机效果
-    typeTextEffect(label: Label, text: string, npcLine: string): Promise<void> {
+    typeTextEffect(label: Label, text: string): Promise<void> {
         return new Promise(resolve => {
             let idx = 0;
-            const interval = setInterval(() => {
-                label.string += text[idx];
-                this.playTypeSound();
-                idx++;
+            const speed = 60;
+    
+            // 解决微信定时器延迟（关键修复）
+            let lastTime = Date.now();
+    
+            const run = () => {
+                const now = Date.now();
+                if (now - lastTime < speed) return;
+                lastTime = now;
+    
+                if (idx < text.length) {
+                    label.string += text[idx];
+                    this.playTypeSound();
+                    idx++;
+                }
+    
                 if (idx >= text.length) {
-                    clearInterval(interval);
+                    clearInterval(timer);
                     resolve();
                 }
-            }, 60);
+            };
+    
+            // 你原来的写法，但内部做了防丢帧
+            const timer = setInterval(run, 16);
         });
     }
 
